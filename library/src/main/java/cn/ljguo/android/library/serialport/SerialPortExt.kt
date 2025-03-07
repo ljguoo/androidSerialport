@@ -43,12 +43,27 @@ class SerialPortExt private constructor() {
         return serialPorts.containsKey(path)
     }
 
-    fun close(path: String) {
-        serialPorts[path]?.apply {
-            inputStream.close()
-            outputStream.close()
+    fun close(path: String? = null) {
+        if (path == null) {
+            // 关闭所有串口
+            serialPorts.forEach { (_, serialPort) ->
+                serialPort.inputStream.close()
+                serialPort.outputStream.close()
+            }
+            serialPorts.clear()
+        } else {
+            // 关闭指定串口
+            serialPorts[path]?.apply {
+                inputStream.close()
+                outputStream.close()
+            }
+            serialPorts.remove(path)
         }
-        serialPorts.remove(path)
+    }
+
+
+    fun listOpenPorts(): List<String> {
+        return serialPorts.keys.toList()
     }
 }
 
