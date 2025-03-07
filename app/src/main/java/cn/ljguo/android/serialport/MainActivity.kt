@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android_serialport_api.SerialPortFinder
-import cn.ljguo.android.library.serialport.SerialPortDataCallBack
 import cn.ljguo.android.library.serialport.SerialPortExt
 import cn.ljguo.android.library.serialport.decoder.ByteSerialPortDecoder
 import cn.ljguo.android.library.serialport.decoder.LineSerialPortDecoder
