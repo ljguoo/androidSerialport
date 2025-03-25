@@ -2,7 +2,7 @@
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
 # Sets the minimum version of CMake required to build the native library.
-
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -falign-functions=16 -falign-jumps=16 -falign-loops=16")
 cmake_minimum_required(VERSION 3.18.1)
 
 # Declares and names the project.
