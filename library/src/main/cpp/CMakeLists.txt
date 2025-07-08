@@ -2,12 +2,21 @@
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
 # Sets the minimum version of CMake required to build the native library.
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -falign-functions=16 -falign-jumps=16 -falign-loops=16")
 cmake_minimum_required(VERSION 3.18.1)
 
 # Declares and names the project.
-
 project("serialport")
+
+# 设置16KB页面大小兼容性的链接器标志
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-z,max-page-size=16384")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-z,max-page-size=16384")
+
+# 设置C编译器标志
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -falign-functions=16 -falign-jumps=16 -falign-loops=16")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -O2")
+
+# 设置包含目录
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -21,7 +30,8 @@ add_library( # Sets the name of the library.
              SHARED
 
              # Provides a relative path to your source file(s).
-             SerialPort.c )
+             SerialPort.c
+             SerialPort.h )
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
